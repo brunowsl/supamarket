@@ -2,6 +2,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class LoginView extends StatelessWidget {
   const LoginView({super.key});
@@ -15,10 +16,14 @@ class LoginView extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Text(
+              Text(
                 'SUPAMARKET',
-                style: TextStyle(
-                  color: Colors.white,
+                style: GoogleFonts.poppins(
+                  textStyle: TextStyle(
+                    color: Colors.white70,
+                    fontSize: 40,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
               const SizedBox(height: 20),
