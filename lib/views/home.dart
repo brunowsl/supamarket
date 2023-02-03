@@ -29,7 +29,7 @@ class _HomeViewState extends State<HomeView> {
             mainAxisSize: MainAxisSize.max,
             children: [
               Expanded(
-                flex: 1,
+                flex: 2,
                 child: CustomCardOverview(),
               ),
               Expanded(

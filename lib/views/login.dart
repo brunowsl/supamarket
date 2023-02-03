@@ -12,43 +12,46 @@ class LoginView extends StatelessWidget {
     return Scaffold(
       body: Container(
         color: Colors.black87,
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                'SUPAMARKET',
-                style: GoogleFonts.poppins(
-                  textStyle: TextStyle(
-                    color: Colors.white70,
-                    fontSize: 40,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-              const SizedBox(height: 20),
-              const CustomLoginInput(
-                  tooltipMessage: 'Username', icon: Icons.person),
-              const SizedBox(height: 10),
-              const CustomLoginInput(
-                  tooltipMessage: 'Password', icon: Icons.lock),
-              const SizedBox(height: 20),
-              SizedBox(
-                width: window.physicalSize.width / 1.5,
-                height: 50,
-                child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/home');
-                  },
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all<Color>(
-                      const Color(0xFF369e6f),
+        child: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  'SUPAMARKET',
+                  style: GoogleFonts.poppins(
+                    textStyle: TextStyle(
+                      color: Colors.white70,
+                      fontSize: 40,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
-                  child: const Text('Login'),
                 ),
-              ),
-            ],
+                const SizedBox(height: 20),
+                const CustomLoginInput(
+                    tooltipMessage: 'Username', icon: Icons.person),
+                const SizedBox(height: 10),
+                const CustomLoginInput(
+                    tooltipMessage: 'Password', icon: Icons.lock),
+                const SizedBox(height: 20),
+                SizedBox(
+                  width: window.physicalSize.width / 1.5,
+                  height: 50,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/home');
+                    },
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all<Color>(
+                        const Color(0xFF369e6f),
+                      ),
+                    ),
+                    child: const Text('Login'),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
