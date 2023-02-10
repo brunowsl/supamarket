@@ -3,7 +3,8 @@
 import 'package:flutter/material.dart';
 
 class CustomCardOverview extends StatelessWidget {
-  const CustomCardOverview({super.key});
+  final int qnt;
+  const CustomCardOverview({super.key, required this.qnt});
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +22,7 @@ class CustomCardOverview extends StatelessWidget {
                 size: 40,
               ),
               trailing: Text(
-                '15',
+                qnt.toString(),
                 style: TextStyle(
                   color: Color(0xFF369e6f),
                   fontSize: 35,

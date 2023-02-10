@@ -1,7 +1,12 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:supamarket/app/purchase/domain/purchase.dart';
 import 'package:supamarket/components/card.dart';
+import 'package:intl/intl.dart';
+
+import '../app/purchase/adapters/in/purchase_controller.dart';
+import '../app/purchase/adapters/out/in_memory_purchase_adapter.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
@@ -11,6 +16,9 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
+  final PurchaseController purchaseController =
+      PurchaseController(InMemoryPurchaseAdapter());
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,40 +36,30 @@ class _HomeViewState extends State<HomeView> {
           child: Column(
             mainAxisSize: MainAxisSize.max,
             children: [
+              CustomCardOverview(qnt: 5),
               Expanded(
-                flex: 2,
-                child: CustomCardOverview(),
-              ),
-              Expanded(
-                flex: 10,
-                child: ListView(
-                  children: List.generate(10, (index) {
-                    return ListTile(
-                      leading: Icon(
-                        Icons.shopping_cart_outlined,
-                        color: Color(0xFF369e6f),
-                        size: 40,
-                      ),
-                      trailing: Text(
-                        'RS 15,00',
-                        style: TextStyle(
-                          color: Color(0xFF369e6f),
-                          fontSize: 20,
-                        ),
-                      ),
-                      title: Text(
-                        'Compra de Lorraine',
-                        style: TextStyle(color: Colors.white),
-                      ),
-                      subtitle: Text(
-                        '22/10/2023',
-                        style: TextStyle(
-                            color: Color.fromARGB(255, 126, 126, 126)),
-                      ),
-                    );
-                  }),
-                ),
-              ),
+                  flex: 10,
+                  child: FutureBuilder<List<Purchase>>(
+                    future: purchaseController.getAllPurchasesByMonth(),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        return ListView.builder(
+                          itemCount: snapshot.data!.length,
+                          itemBuilder: (context, index) {
+                            return CustomCardPurchase(
+                              purchase: snapshot.data![index],
+                            );
+                          },
+                        );
+                      } else if (snapshot.hasError) {
+                        return const Text('Error');
+                      } else {
+                        return const Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      }
+                    },
+                  )),
             ],
           ),
         ),
@@ -73,6 +71,82 @@ class _HomeViewState extends State<HomeView> {
         },
         backgroundColor: Color(0xFF369e6f),
         child: const Icon(Icons.add),
+      ),
+    );
+  }
+}
+
+class CustomCardPurchase extends StatelessWidget {
+  final Purchase purchase;
+  const CustomCardPurchase({super.key, required this.purchase});
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      color: Colors.black54,
+      child: Padding(
+        padding: const EdgeInsets.all(10),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            SizedBox(
+              width: 40,
+              child: Icon(
+                Icons.shopping_cart,
+                color: Color(0xFF369e6f),
+              ),
+            ),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.only(left: 15),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      purchase.responsavel,
+                      style: const TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Color(0xFF369e6f),
+                      ),
+                    ),
+                    Text(
+                      DateFormat('dd/MM/yyyy').format(purchase.data),
+                      style: const TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                        color: Color.fromARGB(255, 83, 83, 83),
+                        fontStyle: FontStyle.italic,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                purchase.finalizado
+                    ? Icon(
+                        Icons.check,
+                        color: Color(0xFF369e6f),
+                      )
+                    : Icon(
+                        Icons.close,
+                        color: Colors.red,
+                      ),
+                Text(
+                  'R\$ ${purchase.valor.toString()}',
+                  style: const TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold,
+                    color: Color(0xFF369e6f),
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
