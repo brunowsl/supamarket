@@ -9,7 +9,7 @@ class CustomCardOverview extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: Colors.black38,
+      color: Colors.black87,
       elevation: 5,
       child: Column(
         // ignore: prefer_const_literals_to_create_immutables

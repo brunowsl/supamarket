@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:supamarket/views/compra.dart';
-import 'package:supamarket/views/home.dart';
+import 'package:supamarket/views/main.dart';
 import 'package:supamarket/views/login.dart';
 
 void main() {
@@ -17,11 +16,12 @@ class MainApp extends StatelessWidget {
       initialRoute: '/login',
       routes: {
         '/login': (context) => const LoginView(),
-        '/home': (context) => const HomeView(),
-        '/compra': (context) => const CompraView(),
+        '/home': (context) => const MainView(),
       },
       theme: ThemeData(
         primaryColor: const Color(0xFF369e6f),
+        scaffoldBackgroundColor: const Color(0xFF232323),
+        useMaterial3: true,
       ),
       home: const LoginView(),
     );
