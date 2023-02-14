@@ -1,12 +1,10 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:flutter/material.dart';
-import 'package:supamarket/app/purchase/domain/purchase.dart';
-import 'package:supamarket/components/card.dart';
 import 'package:intl/intl.dart';
 
 import '../app/purchase/adapters/in/purchase_controller.dart';
 import '../app/purchase/adapters/out/in_memory_purchase_adapter.dart';
+import '../app/purchase/domain/purchase.dart';
+import '../components/card.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
@@ -21,75 +19,63 @@ class _HomeViewState extends State<HomeView> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('SUPAMARKET made with ❤️'),
-        backgroundColor: Colors.black87,
-        iconTheme: IconThemeData(
-          color: Color(0xFF369e6f),
+    return Container(
+      color: Colors.black87,
+      child: Padding(
+        padding: const EdgeInsets.only(left: 20, right: 20),
+        child: Column(
+          mainAxisSize: MainAxisSize.max,
+          children: [
+            const CustomCardOverview(qnt: 5),
+            Expanded(
+                flex: 10,
+                child: FutureBuilder<List<Purchase>>(
+                  future: purchaseController.getAllPurchasesByMonth(),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      return ListView.builder(
+                        itemCount: snapshot.data!.length,
+                        itemBuilder: (context, index) {
+                          return CustomCardPurchase(
+                            purchase: snapshot.data![index],
+                          );
+                        },
+                      );
+                    } else if (snapshot.hasError) {
+                      return const Text('Error');
+                    } else {
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    }
+                  },
+                )),
+          ],
         ),
-      ),
-      body: Container(
-        color: Colors.black87,
-        child: Padding(
-          padding: const EdgeInsets.only(left: 20, right: 20),
-          child: Column(
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              CustomCardOverview(qnt: 5),
-              Expanded(
-                  flex: 10,
-                  child: FutureBuilder<List<Purchase>>(
-                    future: purchaseController.getAllPurchasesByMonth(),
-                    builder: (context, snapshot) {
-                      if (snapshot.hasData) {
-                        return ListView.builder(
-                          itemCount: snapshot.data!.length,
-                          itemBuilder: (context, index) {
-                            return CustomCardPurchase(
-                              purchase: snapshot.data![index],
-                            );
-                          },
-                        );
-                      } else if (snapshot.hasError) {
-                        return const Text('Error');
-                      } else {
-                        return const Center(
-                          child: CircularProgressIndicator(),
-                        );
-                      }
-                    },
-                  )),
-            ],
-          ),
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          // Add your onPressed code here!
-          Navigator.pushNamed(context, '/compra');
-        },
-        backgroundColor: Color(0xFF369e6f),
-        child: const Icon(Icons.add),
       ),
     );
   }
 }
 
-class CustomCardPurchase extends StatelessWidget {
+class CustomCardPurchase extends StatefulWidget {
   final Purchase purchase;
   const CustomCardPurchase({super.key, required this.purchase});
 
   @override
+  State<CustomCardPurchase> createState() => _CustomCardPurchaseState();
+}
+
+class _CustomCardPurchaseState extends State<CustomCardPurchase> {
+  @override
   Widget build(BuildContext context) {
     return Card(
-      color: Colors.black54,
+      color: Colors.black87,
       child: Padding(
         padding: const EdgeInsets.all(10),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            SizedBox(
+            const SizedBox(
               width: 40,
               child: Icon(
                 Icons.shopping_cart,
@@ -103,7 +89,7 @@ class CustomCardPurchase extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      purchase.responsavel,
+                      widget.purchase.responsavel,
                       style: const TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
@@ -111,7 +97,7 @@ class CustomCardPurchase extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      DateFormat('dd/MM/yyyy').format(purchase.data),
+                      DateFormat('dd/MM/yyyy').format(widget.purchase.data),
                       style: const TextStyle(
                         fontSize: 15,
                         fontWeight: FontWeight.bold,
@@ -126,17 +112,17 @@ class CustomCardPurchase extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                purchase.finalizado
-                    ? Icon(
+                widget.purchase.finalizado
+                    ? const Icon(
                         Icons.check,
                         color: Color(0xFF369e6f),
                       )
-                    : Icon(
+                    : const Icon(
                         Icons.close,
                         color: Colors.red,
                       ),
                 Text(
-                  'R\$ ${purchase.valor.toString()}',
+                  'R\$ ${widget.purchase.valor.toString()}',
                   style: const TextStyle(
                     fontSize: 15,
                     fontWeight: FontWeight.bold,
