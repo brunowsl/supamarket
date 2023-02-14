@@ -73,7 +73,7 @@ class _SupermercadosViewState extends State<SupermercadosView> {
       case "SUPERMERCADO":
         return Icons.shopping_cart;
       case "FARMACIA":
-        return Icons.local_pharmacy;
+        return Icons.bloodtype;
       case "PADARIA":
         return Icons.local_cafe;
       case "QUITANDA":
