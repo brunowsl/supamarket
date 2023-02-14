@@ -10,6 +10,10 @@ class CompraView extends StatefulWidget {
 class _CompraViewState extends State<CompraView> {
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Column(
+      children: [
+        Text('Compra'),
+      ],
+    );
   }
 }
