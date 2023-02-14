@@ -41,14 +41,6 @@ class _MainViewState extends State<MainView> {
         ),
       ),
       body: pages[selectedIndex],
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          // Add your onPressed code here!
-          Navigator.pushNamed(context, '/compra');
-        },
-        backgroundColor: Color(0xFF369e6f),
-        child: const Icon(Icons.add),
-      ),
       bottomNavigationBar: NavigationBarTheme(
         data: NavigationBarThemeData(
           indicatorColor: Colors.white.withOpacity(0.1),
@@ -96,7 +88,7 @@ class _MainViewState extends State<MainView> {
               label: 'Histórico',
             ),
           ],
-          backgroundColor: Colors.black,
+          backgroundColor: Colors.black87,
           labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
           selectedIndex: selectedIndex,
           onDestinationSelected: (int index) {

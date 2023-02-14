@@ -20,6 +20,7 @@ class MainApp extends StatelessWidget {
       },
       theme: ThemeData(
         primaryColor: const Color(0xFF369e6f),
+        scaffoldBackgroundColor: const Color(0xFF232323),
         useMaterial3: true,
       ),
       home: const LoginView(),

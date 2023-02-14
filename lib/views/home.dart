@@ -19,39 +19,36 @@ class _HomeViewState extends State<HomeView> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Colors.black87,
-      child: Padding(
-        padding: const EdgeInsets.only(left: 20, right: 20),
-        child: Column(
-          mainAxisSize: MainAxisSize.max,
-          children: [
-            const CustomCardOverview(qnt: 5),
-            Expanded(
-                flex: 10,
-                child: FutureBuilder<List<Purchase>>(
-                  future: purchaseController.getAllPurchasesByMonth(),
-                  builder: (context, snapshot) {
-                    if (snapshot.hasData) {
-                      return ListView.builder(
-                        itemCount: snapshot.data!.length,
-                        itemBuilder: (context, index) {
-                          return CustomCardPurchase(
-                            purchase: snapshot.data![index],
-                          );
-                        },
-                      );
-                    } else if (snapshot.hasError) {
-                      return const Text('Error');
-                    } else {
-                      return const Center(
-                        child: CircularProgressIndicator(),
-                      );
-                    }
-                  },
-                )),
-          ],
-        ),
+    return Padding(
+      padding: const EdgeInsets.only(left: 20, right: 20),
+      child: Column(
+        mainAxisSize: MainAxisSize.max,
+        children: [
+          const CustomCardOverview(qnt: 5),
+          Expanded(
+              flex: 10,
+              child: FutureBuilder<List<Purchase>>(
+                future: purchaseController.getAllPurchasesByMonth(),
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    return ListView.builder(
+                      itemCount: snapshot.data!.length,
+                      itemBuilder: (context, index) {
+                        return CustomCardPurchase(
+                          purchase: snapshot.data![index],
+                        );
+                      },
+                    );
+                  } else if (snapshot.hasError) {
+                    return const Text('Error');
+                  } else {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+                },
+              )),
+        ],
       ),
     );
   }
