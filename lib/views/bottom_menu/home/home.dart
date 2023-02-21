@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:supamarket/views/bottom_menu/home/home_controller.dart';
 
-import '../app/purchase/adapters/in/purchase_controller.dart';
-import '../app/purchase/adapters/out/in_memory_purchase_adapter.dart';
-import '../app/purchase/domain/purchase.dart';
-import '../components/card.dart';
+import '../../../app/purchase/domain/purchase.dart';
+import '../../../components/card.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
@@ -14,8 +13,7 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
-  final PurchaseController purchaseController =
-      PurchaseController(InMemoryPurchaseAdapter());
+  final homeController = HomeController();
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +26,7 @@ class _HomeViewState extends State<HomeView> {
           Expanded(
               flex: 10,
               child: FutureBuilder<List<Purchase>>(
-                future: purchaseController.getAllPurchasesByMonth(),
+                future: homeController.getAllPurchasesByMonth(),
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
                     return ListView.builder(

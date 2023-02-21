@@ -1,57 +1,63 @@
-import 'package:supamarket/app/purchase/usecases/puchases_uc.dart';
 import 'package:supamarket/app/user/domain/user_domain.dart';
 
 import '../../domain/purchase.dart';
+import '../../repositories/purchase_repository.dart';
 
-class InMemoryPurchaseAdapter implements PurchaseUC {
+class InMemoryPurchaseAdapter implements PurchaseRepository {
   final List<Purchase> _purchases = [
     Purchase(
       id: 1,
       responsavel: UserDomain(
-        id: '1',
-        name: 'João',
-        email: 'joao@tce.ma.gov.br',
-      ),
+          id: '1',
+          name: 'João',
+          email: 'joao@tce.ma.gov.br',
+          password: '123456',
+          familyId: '1'),
       data: DateTime.now(),
       finalizado: true,
       valor: 100,
       criadoPor: UserDomain(
-        id: '1',
-        name: 'João',
-        email: 'joao@tce.ma.gov.br',
-      ),
+          id: '1',
+          name: 'João',
+          email: 'joao@tce.ma.gov.br',
+          password: '123456',
+          familyId: '1'),
     ),
     Purchase(
       id: 2,
       responsavel: UserDomain(
-        id: '2',
-        name: 'Maria',
-        email: 'askdasd@gmail.com',
-      ),
+          id: '2',
+          name: 'Maria',
+          email: 'askdasd@gmail.com',
+          password: '123456',
+          familyId: '1'),
       data: DateTime.now(),
       finalizado: true,
       valor: 100,
       criadoPor: UserDomain(
-        id: '1',
-        name: 'João',
-        email: 'aksdjlakhsdjaksd@gmail.com',
-      ),
+          id: '1',
+          name: 'João',
+          email: 'aksdjlakhsdjaksd@gmail.com',
+          password: '123456',
+          familyId: '1'),
     ),
     Purchase(
       id: 3,
       responsavel: UserDomain(
-        id: '3',
-        name: 'José',
-        email: '22222@gmail.com',
-      ),
+          id: '3',
+          name: 'José',
+          email: '22222@gmail.com',
+          password: '123456',
+          familyId: '1'),
       data: DateTime.now(),
       finalizado: true,
       valor: 100,
       criadoPor: UserDomain(
-        id: '1',
-        name: 'João',
-        email: 'lllllll@gmail.com',
-      ),
+          id: '1',
+          name: 'João',
+          email: 'lllllll@gmail.com',
+          password: '123456',
+          familyId: '1'),
     ),
   ];
 

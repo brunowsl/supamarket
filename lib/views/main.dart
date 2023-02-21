@@ -1,11 +1,11 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import 'package:supamarket/views/compra.dart';
-import 'package:supamarket/views/supermercados.dart';
+import 'package:supamarket/views/bottom_menu/purchase/compra.dart';
+import 'package:supamarket/views/bottom_menu/supermarkets/supermercados.dart';
 
-import 'historico.dart';
-import 'home.dart';
+import 'bottom_menu/history/historico.dart';
+import 'bottom_menu/home/home.dart';
 
 class MainView extends StatefulWidget {
   const MainView({super.key});

@@ -1,7 +1,8 @@
 import 'package:supamarket/app/market/domain/market.dart';
-import 'package:supamarket/app/market/usecases/market_uc.dart';
 
-class InMemoryMarketAdapter implements MarketUC {
+import '../../repositories/market_repository.dart';
+
+class InMemoryMarketAdapter implements MarketRepository {
   List<Market> markets = [
     Market(
       name: 'Mateus',

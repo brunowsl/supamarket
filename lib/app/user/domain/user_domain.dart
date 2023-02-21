@@ -5,21 +5,29 @@ class UserDomain {
   final String id;
   final String name;
   final String email;
+  final String password;
+  final String? familyId;
   UserDomain({
     required this.id,
     required this.name,
     required this.email,
+    required this.password,
+    this.familyId,
   });
 
   UserDomain copyWith({
     String? id,
     String? name,
     String? email,
+    String? password,
+    String? familyId,
   }) {
     return UserDomain(
       id: id ?? this.id,
       name: name ?? this.name,
       email: email ?? this.email,
+      password: password ?? this.password,
+      familyId: familyId ?? this.familyId,
     );
   }
 
@@ -28,6 +36,8 @@ class UserDomain {
       'id': id,
       'name': name,
       'email': email,
+      'password': password,
+      'familyId': familyId,
     };
   }
 
@@ -36,6 +46,8 @@ class UserDomain {
       id: map['id'] as String,
       name: map['name'] as String,
       email: map['email'] as String,
+      password: map['password'] as String,
+      familyId: map['familyId'] != null ? map['familyId'] as String : null,
     );
   }
 
@@ -45,15 +57,27 @@ class UserDomain {
       UserDomain.fromMap(json.decode(source) as Map<String, dynamic>);
 
   @override
-  String toString() => 'UserDomain(id: $id, name: $name, email: $email)';
+  String toString() {
+    return 'UserDomain(id: $id, name: $name, email: $email, password: $password, familyId: $familyId)';
+  }
 
   @override
   bool operator ==(covariant UserDomain other) {
     if (identical(this, other)) return true;
 
-    return other.id == id && other.name == name && other.email == email;
+    return other.id == id &&
+        other.name == name &&
+        other.email == email &&
+        other.password == password &&
+        other.familyId == familyId;
   }
 
   @override
-  int get hashCode => id.hashCode ^ name.hashCode ^ email.hashCode;
+  int get hashCode {
+    return id.hashCode ^
+        name.hashCode ^
+        email.hashCode ^
+        password.hashCode ^
+        familyId.hashCode;
+  }
 }

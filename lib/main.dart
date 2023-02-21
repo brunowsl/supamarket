@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:supamarket/views/main.dart';
-import 'package:supamarket/views/login.dart';
+import 'package:supamarket/views/login/login.dart';
 
 void main() {
   runApp(const MainApp());
