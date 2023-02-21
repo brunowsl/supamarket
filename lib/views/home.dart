@@ -86,7 +86,7 @@ class _CustomCardPurchaseState extends State<CustomCardPurchase> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      widget.purchase.responsavel,
+                      widget.purchase.responsavel.name,
                       style: const TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,

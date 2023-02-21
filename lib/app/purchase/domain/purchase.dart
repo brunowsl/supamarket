@@ -1,15 +1,19 @@
 import 'dart:convert';
 
+import 'package:supamarket/app/user/domain/user_domain.dart';
+
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 class Purchase {
-  int id;
-  String responsavel;
+  int? id;
+  UserDomain responsavel;
+  UserDomain criadoPor;
   DateTime data;
   bool finalizado;
   double valor;
   Purchase({
-    required this.id,
+    this.id,
     required this.responsavel,
+    required this.criadoPor,
     required this.data,
     required this.finalizado,
     required this.valor,
@@ -17,7 +21,8 @@ class Purchase {
 
   Purchase copyWith({
     int? id,
-    String? responsavel,
+    UserDomain? responsavel,
+    UserDomain? criadoPor,
     DateTime? data,
     bool? finalizado,
     double? valor,
@@ -25,6 +30,7 @@ class Purchase {
     return Purchase(
       id: id ?? this.id,
       responsavel: responsavel ?? this.responsavel,
+      criadoPor: criadoPor ?? this.criadoPor,
       data: data ?? this.data,
       finalizado: finalizado ?? this.finalizado,
       valor: valor ?? this.valor,
@@ -34,7 +40,8 @@ class Purchase {
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'id': id,
-      'responsavel': responsavel,
+      'responsavel': responsavel.toMap(),
+      'criadoPor': criadoPor.toMap(),
       'data': data.millisecondsSinceEpoch,
       'finalizado': finalizado,
       'valor': valor,
@@ -43,8 +50,10 @@ class Purchase {
 
   factory Purchase.fromMap(Map<String, dynamic> map) {
     return Purchase(
-      id: map['id'] as int,
-      responsavel: map['responsavel'] as String,
+      id: map['id'] != null ? map['id'] as int : null,
+      responsavel:
+          UserDomain.fromMap(map['responsavel'] as Map<String, dynamic>),
+      criadoPor: UserDomain.fromMap(map['criadoPor'] as Map<String, dynamic>),
       data: DateTime.fromMillisecondsSinceEpoch(map['data'] as int),
       finalizado: map['finalizado'] as bool,
       valor: map['valor'] as double,
@@ -58,7 +67,7 @@ class Purchase {
 
   @override
   String toString() {
-    return 'Purchase(id: $id, responsavel: $responsavel, data: $data, finalizado: $finalizado, valor: $valor)';
+    return 'Purchase(id: $id, responsavel: $responsavel, criadoPor: $criadoPor, data: $data, finalizado: $finalizado, valor: $valor)';
   }
 
   @override
@@ -67,6 +76,7 @@ class Purchase {
 
     return other.id == id &&
         other.responsavel == responsavel &&
+        other.criadoPor == criadoPor &&
         other.data == data &&
         other.finalizado == finalizado &&
         other.valor == valor;
@@ -76,6 +86,7 @@ class Purchase {
   int get hashCode {
     return id.hashCode ^
         responsavel.hashCode ^
+        criadoPor.hashCode ^
         data.hashCode ^
         finalizado.hashCode ^
         valor.hashCode;

@@ -10,4 +10,8 @@ class PurchaseController {
   Future<List<Purchase>> getAllPurchasesByMonth() async {
     return await inMemoryPurchaseAdapter.getAllPurchasesByMonth();
   }
+
+  Future<Purchase> savePurchase(Purchase purchase) async {
+    return await inMemoryPurchaseAdapter.savePurchase(purchase);
+  }
 }
